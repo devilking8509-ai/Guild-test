@@ -3,7 +3,7 @@ from xC4 import Emote_k
 import random
 
 # --- SETTINGS ---
-MY_BOSS_UID = "13947421096"  # <--- APNI UID YAHAN DALO
+MY_BOSS_UID = "9316257817"  # <--- APNI UID YAHAN DALO
 DELAY = 4.15  # Speed (Jitna kam, utna tez)
 
 # --- STATE VARIABLES ---
