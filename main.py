@@ -11,6 +11,7 @@ import asyncio
 import random
 from Crypto.Cipher import AES
 from Crypto.Util.Padding import pad, unpad
+import vip  # <--- Ye nayi line hai
 
 #EMOTES BY PARAHEX X CODEX
 # FIXED BY ROSHAN ❄️ 
@@ -844,7 +845,15 @@ async def TcPChaT(ip, port, AutHToKen, key, iv, LoGinDaTaUncRypTinG, ready_event
                             else:
                                 error_msg = f"[B][C][FF0000]❌ ERROR! Please provide a question after /ai\nExample: /ai What is Free Fire?\n"
                                 await safe_send_message(response.Data.chat_type, error_msg, uid, chat_id, key, iv)
-
+                        # --- VIP FILE CONNECTION ---
+                        if inPuTMsG.strip() in ['/all', '/all_evo', '/stop all']:
+                            # Hum nayi file (vip.py) ko bula rahe hain
+                            reply = await vip.handle_vip_command(inPuTMsG.strip(), uid, key, iv, region, whisper_writer, online_writer)
+                            
+                            # Agar wahan se koi jawab aya, to game mein bhej do
+                            if reply:
+                                await safe_send_message(response.Data.chat_type, reply, uid, chat_id, key, iv)
+                                
                         # Likes Command - /likes
                         if inPuTMsG.strip().startswith('/likes '):
                             print('Processing likes command in any chat type')
