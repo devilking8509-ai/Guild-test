@@ -27,8 +27,17 @@ def start_bot_core():
     except Exception as e:
         print(f"CRITICAL ERROR IN BOT THREAD: {e}")
         bot_status = f"Error: {str(e)}"
-        # Error को कंसोल में प्रिंट करें ताकि Logs में दिखे
         sys.stdout.flush()
+
+# --- महत्वपूर्ण बदलाव: Gunicorn के लिए थ्रेड को यहाँ स्टार्ट करें ---
+# यह लाइन अब 'if __name__' के बाहर है ताकि Render इसे चला सके
+try:
+    if not os.environ.get("WERKZEUG_RUN_MAIN"): # यह सुनिश्चित करता है कि थ्रेड दो बार न चले
+        bot_thread = threading.Thread(target=start_bot_core, daemon=True)
+        bot_thread.start()
+        print("Bot thread initiated via Global Scope")
+except Exception as e:
+    print(f"Error starting thread: {e}")
 
 @app.route('/')
 def health_check():
@@ -39,10 +48,6 @@ def health_check():
     })
 
 if __name__ == '__main__':
-    # थ्रेड स्टार्ट करें
-    bot_thread = threading.Thread(target=start_bot_core, daemon=True)
-    bot_thread.start()
-    
-    # Flask सर्वर स्टार्ट करें
+    # यह सिर्फ लोकल टेस्टिंग के लिए है
     print(f"Flask Web Server running on port {PORT}")
     app.run(host='0.0.0.0', port=PORT)
