@@ -1,5 +1,5 @@
 import asyncio
-from xC4 import Emote_k  # SEndPacKeT yahan se hata diya gaya hai
+from xC4 import Emote_k
 
 # ==========================================
 # SETTINGS (Apni UID yahan dalein)
@@ -16,7 +16,6 @@ current_task = None
 
 # ==========================================
 # LOCAL FUNCTION: PACKET SENDER
-# (Ye function humne yahan banaya taki import error na aaye)
 # ==========================================
 async def SEndPacKeT(whisper_writer, online_writer, TypE, PacKeT):
     if TypE == 'ChaT' and whisper_writer:
@@ -54,7 +53,6 @@ async def run_evo_loop(uid, key, iv, region, whisper_writer, online_writer):
             if not evo_running: break
             try:
                 H = await Emote_k(int(uid), int(emote_id), key, iv, region)
-                # Humne apna local SEndPacKeT use kiya
                 await SEndPacKeT(whisper_writer, online_writer, 'OnLine', H)
                 await asyncio.sleep(DELAY)
             except Exception as e:
@@ -74,14 +72,15 @@ async def run_mix_loop(uid, key, iv, region, whisper_writer, online_writer):
                 print(f"Loop Error: {e}")
 
 # ==========================================
-# MAIN COMMAND HANDLER
+# MAIN COMMAND HANDLER 
+# (Corrected Name: handle_vip_command)
 # ==========================================
-async def handle_commands(msg, uid, key, iv, region, whisper_writer, online_writer):
+async def handle_vip_command(msg, uid, key, iv, region, whisper_writer, online_writer):
     global evo_running, mix_running, current_task
 
     # 1. SECURITY CHECK
     if str(uid) != MY_BOSS_UID:
-        return "❌ Hat bey! Tu Boss nahi hai."
+        return f"❌ Hat bey! Tu Boss nahi hai. (Your UID: {uid})"
 
     # 2. STOP COMMAND
     if msg == '/stop all':
