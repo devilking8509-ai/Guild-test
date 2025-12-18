@@ -32,9 +32,9 @@ from important_zitado import *
 from byte import *
 
 # ================== CONFIG ==================
-START_SPAM_DURATION = 18       # start spam kitni der chale
-WAIT_AFTER_MATCH_SECONDS = 20  # match khatam + lobby wapas approx time
-START_SPAM_DELAY = 0.2         # start packets ke beech delay
+START_SPAM_DURATION = 7       # start spam kitni der chale
+WAIT_AFTER_MATCH_SECONDS = 5  # match khatam + lobby wapas approx time
+START_SPAM_DELAY = 0.01         # start packets ke beech delay
 
 PROMO_TEXT = "Tg @lsahilxx | Ig @lsahilxx"
 
